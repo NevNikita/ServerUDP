@@ -33,13 +33,13 @@ namespace ServerUDP
 
         public void CreateUser(string login, string _password, string _username = "NULL")
         {
-            MySqlCommand command = new MySqlCommand("INSERT INTO users (login, password, username) VALUES (@login, @password, @username)", getConnection());
+            MySqlCommand command = new MySqlCommand("INSERT INTO users (login, password, username) VALUES (@login, @password, @username)", connection);
 
             command.Parameters.Add("@login", MySqlDbType.VarChar).Value = login;
             command.Parameters.Add("@password", MySqlDbType.VarChar).Value = _password;
             command.Parameters.Add("@username", MySqlDbType.VarChar).Value = _username;
 
-            openConnect();
+            connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
 
@@ -110,7 +110,7 @@ namespace ServerUDP
 
         public void ChatLogAdd(int roomID, string msg, DateTime dateTime, int userID, string username)
         {
-            MySqlCommand command = new MySqlCommand("INSERT INTO `chat logs` (roomID, `chat message`, userID, username, datetime) VALUES (@roomID, @msg, @userID, @username, @dtt)", getConnection());
+            MySqlCommand command = new MySqlCommand("INSERT INTO `chat logs` (roomID, `chat message`, userID, username, datetime) VALUES (@roomID, @msg, @userID, @username, @dtt)", connection);
 
             command.Parameters.Add("@roomID", MySqlDbType.Int32).Value = roomID;
             command.Parameters.Add("@msg", MySqlDbType.Text).Value = msg;
